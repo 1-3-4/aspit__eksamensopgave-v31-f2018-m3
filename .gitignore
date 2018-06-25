@@ -1,0 +1,4 @@
+# Ignore the 'tmp' directory:
+/tmp
+# Ignore the 'node_modules' directory:
+/node_modules
