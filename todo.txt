@@ -1,2 +1,4 @@
 x Setup dev enviroment.
-* Get and setup Bootstrap.
+x Get and setup Bootstrap.
+* Create header layout with Bootstrap.
+* Move script tags to head.
