@@ -4,5 +4,7 @@ x Find out: Which html5 tags to use for layout? <div> stands for division, which
 x Create header layout with Bootstrap.
 x Create footer layout (and styling) with Bootstrap.
 * Create layout for <main> and <aside>.
+    x Create layout and styling for product card using Bootstrap.
+    * Create layout and styling for list of orders.
 
 * Move script tags to head.
