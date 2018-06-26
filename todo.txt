@@ -2,5 +2,7 @@ x Setup dev enviroment.
 x Get and setup Bootstrap.
 x Find out: Which html5 tags to use for layout? <div> stands for division, which is good for the Bootstrap grid.
 x Create header layout with Bootstrap.
+x Create footer layout (and styling) with Bootstrap.
+* Create layout for <main> and <aside>.
 
 * Move script tags to head.
