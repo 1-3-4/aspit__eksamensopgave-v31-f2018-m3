@@ -1,3 +1,9 @@
-.header_logo {
-    max-width: 100%;
+.header__jumbotron_has_bg-img {
+    background-image: url("../img/jumbotron.jpg");
+    /* These lines looks the most like the mockup: */
+    background-repeat: no-repeat;
+    background-position: 50% 41%;
+    /* I like the following look better on mobile view: */
+    // background-size: 150%;
+    // background-position: 50% 40%;
 }
