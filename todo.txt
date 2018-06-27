@@ -3,8 +3,11 @@ x Get and setup Bootstrap.
 x Find out: Which html5 tags to use for layout? <div> stands for division, which is good for the Bootstrap grid.
 x Create header layout with Bootstrap.
 x Create footer layout (and styling) with Bootstrap.
-* Create layout for <main> and <aside>.
+x Create layout for <main> and <aside>.
     x Create layout and styling for product card using Bootstrap.
-    * Create layout and styling for list of orders.
+    x Create layout and styling for list of orders.
+* Finetune misc. bugs in responsive layout.
+    * Move the button and price tag to the bottom of the cards.
+    x On wide mobile view, the cards' title, description, button, and price fits on one line. Make it so they don't.
 
 * Move script tags to head.
