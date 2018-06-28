@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 // var livereload = require('gulp-livereload');
 var connect = require('gulp-connect');
+var babel = require('gulp-babel');
 
 // Path to localhost on AspIT computer:
 var localhost = '';
@@ -43,8 +44,9 @@ gulp.task('css', function () {
 });
 
 gulp.task('js', function () {
-	return gulp.src(paths.srcJS)
-		.pipe(gulp.dest(paths.tmpJS))
+	return gulp.src( ['./node_modules/babel-polyfill/dist/polyfill.js', paths.srcJS])
+        .pipe(babel({presets: ['env']}))
+        .pipe(gulp.dest(paths.tmpJS))
 		.pipe(connect.reload());
 });
 

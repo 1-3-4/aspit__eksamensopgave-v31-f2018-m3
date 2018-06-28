@@ -6,8 +6,17 @@ x Create footer layout (and styling) with Bootstrap.
 x Create layout for <main> and <aside>.
     x Create layout and styling for product card using Bootstrap.
     x Create layout and styling for list of orders.
+    * Change layout of main content area. Use a nested column layout.
 * Finetune misc. bugs in responsive layout.
     * Move the button and price tag to the bottom of the cards.
     x On wide mobile view, the cards' title, description, button, and price fits on one line. Make it so they don't.
+* Implement Babel in gulp?
+    * Install Babel: npm install --save-dev gulp-babel babel-core babel-preset-env
+
+* Import product data from external document.
+    * Create a javascript class for the product.
+    * Create an object from the class, with data from a variable holding json data.
+    * Save the object in an array.
+    * Create javascript function to go over json object, and create objects from it. Save each object in an array.
 
 * Move script tags to head.
