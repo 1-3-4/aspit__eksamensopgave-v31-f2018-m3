@@ -9,15 +9,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     // VARIABLES
     const cardCatalog = document.getElementById('card-catalog');
-    // const col = document.createElement('div');
-    // const card = document.createElement('article');
-    // const cardBody = document.createElement('div');
-    // const container = document.createElement('div');
-    // const row = document.createElement('div');
-    // const cardTitle = document.createElement('h3');
-    // const cardCol = document.createElement('div');
 
     addCard('americano','Americano', 'Stærk crema espresso med varmt vand.', 60);
+    addCard('caffe-latte', 'Caffe Látte', 'Espresso med skummet varm mælk.', 65);
+    addCard('cappuccino', 'Cappuccino', 'Espresso med dampet mælk og skum.', 75);
 
     // FUNCTIONS
     function addCard(image, title, description, price) {
@@ -39,8 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cardBtn.classList.add('my-3');
         cardBtn.innerHTML = 'Bestil';
 
-        // Create card and its divisions:
-            // Create card image header:
+        // Create card image header:
         cardImg.classList.add('card-img-top');
         cardImg.src = `./img/product__${image}.jpg`;
 
@@ -106,9 +100,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Populate card body with content:
         cardBody.appendChild(con);
+
         // Populate card with content:
         card.appendChild(cardImg);
         card.appendChild(cardBody);
+
         // Create column for card in card catalog:
         col = document.createElement('div');
         col.classList.add('col-sm-6');
