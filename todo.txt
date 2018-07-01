@@ -12,6 +12,9 @@ x Create layout for <main> and <aside>.
     x On wide mobile view, the cards' title, description, button, and price fits on one line. Make it so they don't.
 x Implement Babel in gulp.
     - Install Babel: npm install --save-dev gulp-babel babel-core babel-preset-env
+* Implement JavaScript (ECMAScript 6).
+    x Create a function that inserts a card in the DOM, populated with content.
+    * Expand function to loop through array of content.
 * Import product data from external document.
     * Create a javascript class for the product.
     * Create an object from the class, with data from a variable holding json data.
