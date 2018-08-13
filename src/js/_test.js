@@ -9,6 +9,61 @@
 document.addEventListener("DOMContentLoaded", function () {
     // VARIABLES
     const cardCatalog = document.getElementById('card-catalog');
+    const products = {
+        "coffee1": {
+            "navn" : "Americano",
+            "beskrivelse" : "Stærk crema espresso med varmt vand",
+            "pris" : "60kr",
+            "img" : "Americano.jpg"
+        },
+        "coffee2": {
+            "navn" : "Caffe latte",
+            "beskrivelse" : "Espresso med skummet varm mælk",
+            "pris" : "65kr",
+            "img" : "Caffe_Latte.jpg"
+        },
+        "coffee3": {
+            "navn" : "Cappuccino",
+            "beskrivelse" : "Espresso med dampet mælk og skum",
+            "pris" : "75kr",
+            "img" : "Cappucino.jpg"
+        },
+        "coffee4": {
+            "navn" : "Espresso",
+            "beskrivelse" : "Espresso lavet af vores dygtigste baristaer",
+            "pris" : "50kr",
+            "img" : "Espresso.jpg"
+        },
+        "coffee5": {
+            "navn" : "Macchiato",
+            "beskrivelse" : "Lækker espressodrik med skummet mælk og chokolade",
+            "pris" : "100kr",
+            "img" : "Macchiato.jpg"
+        }
+    }
+    console.log(products.coffee1.navn);
+
+    // CLASS(ES)
+    class product {
+        constructor(image, title, description, price) {
+            this.image = image;
+            this.title = title;
+            this.description = description;
+            this.price = price;
+        }
+        createCard(){}
+        addCardToDOM(){}
+    }
+
+    // const product1 = new product('americano', 'Americano', 'Stærk crema espresso med varmt vand.', 60);
+    // console.log(product1);
+    // const product1 = new product(products.coffee1.img, products.coffee1.navn, products.coffee1.beskrivelse, products.coffee1.pris);
+    // console.log(product1);
+
+    forEach(){
+
+    }
+
 
     addCard('americano','Americano', 'Stærk crema espresso med varmt vand.', 60);
     addCard('caffe-latte', 'Caffe Látte', 'Espresso med skummet varm mælk.', 65);
