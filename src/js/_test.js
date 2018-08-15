@@ -21,25 +21,25 @@ document.addEventListener("DOMContentLoaded", function () {
             "navn" : "Caffe latte",
             "beskrivelse" : "Espresso med skummet varm mælk",
             "pris" : 65,
-            "img" : "Caffe_Latte.jpg"
+            "img" : "caffe-latte.jpg"
         },
         "coffee3": {
             "navn" : "Cappuccino",
             "beskrivelse" : "Espresso med dampet mælk og skum",
             "pris" : 75,
-            "img" : "Cappucino.jpg"
+            "img" : "cappuccino.jpg"
         },
         "coffee4": {
             "navn" : "Espresso",
             "beskrivelse" : "Espresso lavet af vores dygtigste baristaer",
             "pris" : 50,
-            "img" : "Espresso.jpg"
+            "img" : "espresso.jpg"
         },
         "coffee5": {
             "navn" : "Macchiato",
             "beskrivelse" : "Lækker espressodrik med skummet mælk og chokolade",
             "pris" : 100,
-            "img" : "Macchiato.jpg"
+            "img" : "macchiato.jpg"
         }
     }
 
