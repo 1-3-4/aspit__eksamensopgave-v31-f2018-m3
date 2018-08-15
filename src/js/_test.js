@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
             this.description = description;
             this.price = price;
         }
+        // Function to render a card via html5 with the values from the object it is called on/from:
         render(){
             return `<div class="col-sm-6 py-3">
                         <article class="card h-100">
@@ -82,30 +83,31 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // const product1 = new product('americano', 'Americano', 'Stærk crema espresso med varmt vand.', 60);
-    // console.log(product1);
-    // const product1 = new product(products.coffee1.img, products.coffee1.navn, products.coffee1.beskrivelse, products.coffee1.pris);
-    // console.log(product1);
+    // SETUP
+    setupUserInterface(products);
 
-    const keys = Object.keys(products);
-    for (let i = 0; i < keys.length; i++) {
-        // console.log(keys[i]);
+    // FUNCTION(S)
+    function setupUserInterface(obj) {
+        const keys = Object.keys(obj);
+        for (let i = 0; i < keys.length; i++) {
+            // console.log(keys[i]);
 
-        // Create var, set value to object key, data type string:
-        const key = keys[i];
-        // console.log(key);
+            // Create var, set value to object key, data type string:
+            const key = keys[i];
+            // console.log(key);
 
-        const coffee = new product(
-            // Image
-            products[key].img,
-            // Title
-            products[key].navn,
-            // Description
-            products[key].beskrivelse,
-            // Price
-            products[key].pris
-        );
-        console.log(coffee);
-        cardCatalog.insertAdjacentHTML('beforeend', coffee.render());
+            const coffee = new product(
+                // Image
+                obj[key].img,
+                // Title
+                obj[key].navn,
+                // Description
+                obj[key].beskrivelse,
+                // Price
+                obj[key].pris
+            );
+            console.log(coffee);
+            cardCatalog.insertAdjacentHTML('beforeend', coffee.render());
+        }
     }
 });
