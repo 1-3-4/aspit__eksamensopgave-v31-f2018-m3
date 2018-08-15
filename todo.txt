@@ -18,8 +18,13 @@ x Implement Babel in gulp.
 * Import product data from external document.
     x Create a javascript class for the product.
     x Create an object from the class, with data from a variable holding json data.
-    * Save the object in an array.
     x Create javascript function to go over json object, and create objects from it.
-*
+x Make JS responsible for displaying how many orders there is in the orders list.
+    x Create function that counts how many rows there is in the orders list.
+    x Create a function that updates the 'pill' with the counted number of orders.
+* Create order class.
+    * Create order object when a 'Bestil' btn is clicked.
+    * Add order obj to order catalog.
+    * Call the displayOrderCount() when a 'Bestil' btn is clicked.
 
 x Move script tags to head.

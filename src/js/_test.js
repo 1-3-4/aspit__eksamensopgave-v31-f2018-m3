@@ -9,35 +9,36 @@
 document.addEventListener("DOMContentLoaded", function () {
     // VARIABLES
     const cardCatalog = document.getElementById('card-catalog');
+    const orderCatalog = document.getElementById('orders');
     // JavaScript object, not correct JSON ???
     const products = {
         "coffee1": {
             "navn" : "Americano",
-            "beskrivelse" : "Stærk crema espresso med varmt vand",
+            "beskrivelse" : "Stærk crema espresso med varmt vand.",
             "pris" : 60,
             "img" : "americano.jpg"
         },
         "coffee2": {
             "navn" : "Caffe látte",
-            "beskrivelse" : "Espresso med skummet varm mælk",
+            "beskrivelse" : "Espresso med skummet varm mælk.",
             "pris" : 65,
             "img" : "caffe-latte.jpg"
         },
         "coffee3": {
             "navn" : "Cappuccino",
-            "beskrivelse" : "Espresso med dampet mælk og skum",
+            "beskrivelse" : "Espresso med dampet mælk og skum.",
             "pris" : 75,
             "img" : "cappuccino.jpg"
         },
         "coffee4": {
             "navn" : "Espresso",
-            "beskrivelse" : "Espresso lavet af vores dygtigste baristaer",
+            "beskrivelse" : "Espresso lavet af vores dygtigste baristaer.",
             "pris" : 50,
             "img" : "espresso.jpg"
         },
         "coffee5": {
             "navn" : "Macchiato",
-            "beskrivelse" : "Lækker espressodrik med skummet mælk og chokolade",
+            "beskrivelse" : "Lækker espressodrik med skummet mælk og chokolade.",
             "pris" : 100,
             "img" : "macchiato.jpg"
         }
@@ -85,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // SETUP
     setupUserInterface(products);
+    displayOrderCount();
 
     // FUNCTION(S)
     function setupUserInterface(obj) {
@@ -106,8 +108,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Price
                 obj[key].pris
             );
-            console.log(coffee);
             cardCatalog.insertAdjacentHTML('beforeend', coffee.render());
         }
+    }
+    function countOrders(inElement) {
+        const elem = inElement;
+        return elem.getElementsByTagName('li').length - 1;
+    }
+    function displayOrderCount() {
+        // Get pill to show number of orders
+        const orderCountContainer = document.getElementById('orders__count');
+        // Order count:
+        const orderCount = countOrders(orderCatalog);
+        // Display new order count in pill
+        orderCountContainer.innerHTML = orderCount;
     }
 });
