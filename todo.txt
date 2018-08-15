@@ -16,9 +16,10 @@ x Implement Babel in gulp.
     x Create a function that inserts a card in the DOM, populated with content.
     x Expand function to loop through array of content.
 * Import product data from external document.
-    * Create a javascript class for the product.
-    * Create an object from the class, with data from a variable holding json data.
+    x Create a javascript class for the product.
+    x Create an object from the class, with data from a variable holding json data.
     * Save the object in an array.
-    * Create javascript function to go over json object, and create objects from it. Save each object in an array.
+    x Create javascript function to go over json object, and create objects from it.
+*
 
-* Move script tags to head.
+x Move script tags to head.

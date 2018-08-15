@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "img" : "americano.jpg"
         },
         "coffee2": {
-            "navn" : "Caffe latte",
+            "navn" : "Caffe látte",
             "beskrivelse" : "Espresso med skummet varm mælk",
             "pris" : 65,
             "img" : "caffe-latte.jpg"
