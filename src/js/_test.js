@@ -5,7 +5,10 @@
 // var nameBuilder = function (firstName="John", lastName="Doe") {
 //     console.log(firstName + " " + lastName);
 // }
-
+// Function: Get order title:
+function getOrderTitle(id) {
+    console.log(id);
+}
 document.addEventListener("DOMContentLoaded", function () {
     // VARIABLES
     const cardCatalog = document.getElementById('card-catalog');
@@ -46,7 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // CLASS(ES)
     class product {
-        constructor(image, title, description, price) {
+        constructor(id, image, title, description, price) {
+            this.id = id;
             this.image = image;
             this.title = title;
             this.description = description;
@@ -71,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     </div>
                                     <div class="row">
                                         <div class="col px-0">
-                                            <button class="btn btn-outline-secondary my-3">Bestil</button>
+                                            <button class="btn btn-outline-secondary my-3" onclick="getOrderTitle('${this.id}');" data-product-id="${this.id}">Bestil</button>
                                         </div>
                                         <div class="col px-0 d-inline-flex flex-row flex-nowrap justify-content-end align-items-center">
                                             <p class="card-text">${this.price}kr</p>
@@ -83,10 +87,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>`;
         }
     }
-
-    // SETUP
-    setupUserInterface(products);
-    displayOrderCount();
+    class order {
+        constructor(title, price) {
+            this.title = title;
+            this.price = price;
+        }
+    }
 
     // FUNCTION(S)
     function setupUserInterface(obj) {
@@ -99,6 +105,8 @@ document.addEventListener("DOMContentLoaded", function () {
             // console.log(key);
 
             const coffee = new product(
+                //ID
+                key,
                 // Image
                 obj[key].img,
                 // Title
@@ -123,4 +131,15 @@ document.addEventListener("DOMContentLoaded", function () {
         // Display new order count in pill
         orderCountContainer.innerHTML = orderCount;
     }
+
+    // Function: Get order price:
+    // function createOrder() {
+    //     const title;
+    //     const price;
+    //     const order = new order(title, price);
+    // }
+
+    // SETUP
+    setupUserInterface(products);
+    displayOrderCount();
 });

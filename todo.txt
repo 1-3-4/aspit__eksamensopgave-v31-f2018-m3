@@ -22,9 +22,19 @@ x Implement Babel in gulp.
 x Make JS responsible for displaying how many orders there is in the orders list.
     x Create function that counts how many rows there is in the orders list.
     x Create a function that updates the 'pill' with the counted number of orders.
+* Make JS responsible for tallying up.
+    * Create a function that outputs an array of numbers; the individual prices of the orders in the order catalog.
+    * Create a function that calculates the total sum to pay.
+    * Create a function that displays the calculated sum.
 * Create order class.
     * Create order object when a 'Bestil' btn is clicked.
     * Add order obj to order catalog.
     * Call the displayOrderCount() when a 'Bestil' btn is clicked.
+    * Calculate and display the new order sum total when a new order has been added.
 
 x Move script tags to head.
+
+---
+
+Ting jeg ikke ved...
+- Hvad bliver der af objekterne i min for løkke, efter de er brugt til a lave mit user interface? Ligger de stadigvæk i hukommelsen, eller...?
