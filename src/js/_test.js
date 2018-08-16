@@ -32,6 +32,18 @@ const products = {
         "img" : "macchiato.jpg"
     }
 }
+let orders;
+// Check if there already exist a localStorage key 'dumbStarbucksCoffeeOrders'. The result will affect what value 'orders' gets:
+if (localStorage.getItem('dumbStarbucksCoffeeOrders')) {
+    orders = JSON.parse(localStorage.getItem('dumbStarbucksCoffeeOrders'));
+}
+else {
+    orders = [];
+}
+// Create a localStorage item with the key of 'dumbStarbucksCoffeeOrders' and set its value to array of orders (which has been converted to a string):
+localStorage.setItem('dumbStarbucksCoffeeOrders', JSON.stringify(orders));
+// Convert the string stored in localStorage to an array of obj:
+const savedOrders = JSON.parse(localStorage.getItem('dumbStarbucksCoffeeOrders'));
 
 // CLASS(ES)
 class product {
@@ -87,6 +99,29 @@ class order {
 }
 
 // FUNCTION(S)
+function setupUserInterface(obj, location) {
+    const keys = Object.keys(obj);
+    for (let i = 0; i < keys.length; i++) {
+        // console.log(keys[i]);
+
+        // Create var, set value to object key, data type string:
+        const key = keys[i];
+
+        const coffee = new product(
+            //ID
+            key,
+            // Image
+            obj[key].img,
+            // Title
+            obj[key].navn,
+            // Description
+            obj[key].beskrivelse,
+            // Price
+            obj[key].pris
+        );
+        location.insertAdjacentHTML('beforeend', coffee.render());
+    }
+}
 function isProductExisting(source, searchFor, iterationCount) {
     const numberOfProducts = Object.keys(source).length;
     const productIDs = Object.keys(source);
@@ -105,6 +140,12 @@ function isProductExisting(source, searchFor, iterationCount) {
         return isProductExisting(source, searchFor, iterationCount);
     }
 }
+function saveOrderToLocalStorage(order) {
+    // Add order to array of orders:
+    orders.push(order);
+    // Convert the array of order obj into a string and save it in localStorage:
+    localStorage.setItem('dumbStarbucksCoffeeOrders', JSON.stringify(orders));
+}
 function orderProduct(id) {
     const keys = Object.keys(products);
     // Check if ID exists in products:
@@ -114,6 +155,9 @@ function orderProduct(id) {
         const title = products[id].navn;
         const price = products[id].pris;
         const orderedProduct = new order(title, price);
+
+        saveOrderToLocalStorage(orderedProduct);
+            console.log(orders);
         // Create the rendered order in the order catalog:
         const orderCatalog = document.getElementById('orders');
         orderCatalog.insertAdjacentHTML('afterbegin', orderedProduct.render());
@@ -136,37 +180,17 @@ function updateOrderCount(fromThisElement) {
     orderCountDisplay.innerHTML = orderCount;
 }
 
+// SETUP
 document.addEventListener("DOMContentLoaded", function () {
     // VARIABLES
     const cardCatalog = document.getElementById('card-catalog');
     const orderCatalog = document.getElementById('orders');
 
-    // FUNCTION(S)
-    function setupUserInterface(obj) {
-        const keys = Object.keys(obj);
-        for (let i = 0; i < keys.length; i++) {
-            // console.log(keys[i]);
-
-            // Create var, set value to object key, data type string:
-            const key = keys[i];
-
-            const coffee = new product(
-                //ID
-                key,
-                // Image
-                obj[key].img,
-                // Title
-                obj[key].navn,
-                // Description
-                obj[key].beskrivelse,
-                // Price
-                obj[key].pris
-            );
-            cardCatalog.insertAdjacentHTML('beforeend', coffee.render());
-        }
-    }
-
-    // SETUP
-    setupUserInterface(products);
+    setupUserInterface(products, cardCatalog);
+    // updateOrderCount(orderCatalog);
+    savedOrders.forEach(order => {
+        // orderCatalog.insertAdjacentHTML('afterbegin', order.render());
+        console.log(order);
+    });
     updateOrderCount(orderCatalog);
 });
