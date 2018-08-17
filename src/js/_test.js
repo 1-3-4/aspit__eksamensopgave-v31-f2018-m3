@@ -33,6 +33,7 @@ const products = {
     }
 }
 let orders;
+let orderCatalog;
 let orderSumContainer;
 
 // CLASS(ES)
@@ -196,15 +197,48 @@ function saveOrderToLocalStorage(order) {
     // Convert the array of order obj into a string and save it in localStorage:
     localStorage.setItem('dumbStarbucksCoffeeOrders', JSON.stringify(orders));
 }
+function clearOrdersFromLocalStorage() {
+    localStorage.removeItem('dumbStarbucksCoffeeOrders');
+}
+function updateOrderCatalog() {
+    const rowForSum =  `<li class="list-group-item d-flex flex-row flex-nowrap justify-content-between align-items-center">
+                            <span>Total (DKK)</span>
+                            <span class="font-weight-bold" id="orders__sum">0kr</span>
+                        </li>`;
+    // Delete all rows from order catalog:
+    while (orderCatalog.firstChild) {
+        orderCatalog.removeChild(orderCatalog.firstChild);
+    }
+    // Create a row to display the sum total in the order catalog:
+    orderCatalog.insertAdjacentHTML('beforeend', rowForSum);
+}
+function deleteOrders() {
+    orders = [];
+    clearOrdersFromLocalStorage();
+    updateOrderCatalog();
+    updateOrderCount(orderCatalog);
+    displaySumIn(orderSumContainer);
+}
 function calculateSum() {
     let sum = 0;
-    const localStorageValueString = localStorage.getItem('dumbStarbucksCoffeeOrders');
+    let localStorageValueString;
+        if (localStorage.getItem('dumbStarbucksCoffeeOrders')) {
+            localStorageValueString = localStorage.getItem('dumbStarbucksCoffeeOrders');
+        }
+        else {
+            localStorageValueString = '[]';
+        }
     const localStorageValueArray = JSON.parse(localStorageValueString);
-    for (const obj of localStorageValueArray) {
-        const price = obj.price;
-        sum += price;
+    if (localStorageValueArray.length == 0) {
+        return sum;
     }
-    return sum;
+    else {
+        for (const obj of localStorageValueArray) {
+            const price = obj.price;
+            sum += price;
+        }
+        return sum;
+    }
 }
 function displaySumIn(here) {
     const sum = calculateSum();
@@ -214,7 +248,7 @@ function displaySumIn(here) {
 document.addEventListener("DOMContentLoaded", function () {
     // VARIABLES
     const cardCatalog = document.getElementById('card-catalog');
-    const orderCatalog = document.getElementById('order-catalog');
+    orderCatalog = document.getElementById('order-catalog');
     orderSumContainer = document.getElementById('orders__sum')
 
     useLocalStorage();
