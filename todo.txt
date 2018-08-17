@@ -30,10 +30,11 @@ x Make JS responsible for displaying how many orders there is in the orders list
 * Store the contents of the order catalog on the computer.
     x Decide whether to use local or session storage.
     - Use localStorage. It would be very annoying to lose your carefully selected coffee orders by mistakenly closing the tab.
-    * When adding an order to the order catalog, at the same time add it to storage.
+    x When adding an order to the order catalog, at the same time add it to storage.
+    x Check if there is something stored in localStorage. If there is, load it in when site is loaded, else set the value to an empty array.
 * Make JS responsible for tallying up.
-    * Create a function that adds all the price value-pairs in storage together, and returns the result.
-    * Create a function that displays the calculated sum.
+    x Create a function that adds all the price value-pairs in storage together, and returns the result.
+    x Create a function that displays the calculated sum.
 
 x Move script tags to head.
 

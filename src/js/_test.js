@@ -33,17 +33,7 @@ const products = {
     }
 }
 let orders;
-// Check if there already exist a localStorage key 'dumbStarbucksCoffeeOrders'. The result will affect what value 'orders' gets:
-if (localStorage.getItem('dumbStarbucksCoffeeOrders')) {
-    orders = JSON.parse(localStorage.getItem('dumbStarbucksCoffeeOrders'));
-}
-else {
-    orders = [];
-}
-// Create a localStorage item with the key of 'dumbStarbucksCoffeeOrders' and set its value to array of orders (which has been converted to a string):
-localStorage.setItem('dumbStarbucksCoffeeOrders', JSON.stringify(orders));
-// Convert the string stored in localStorage to an array of obj:
-const savedOrders = JSON.parse(localStorage.getItem('dumbStarbucksCoffeeOrders'));
+let orderSumContainer;
 
 // CLASS(ES)
 class product {
@@ -96,14 +86,15 @@ class order {
                     <span>${this.price}kr</span>
                 </li>`;
     }
+    display(here) {
+        here.insertAdjacentHTML('afterbegin', this.render());
+    }
 }
 
 // FUNCTION(S)
 function setupUserInterface(obj, location) {
     const keys = Object.keys(obj);
     for (let i = 0; i < keys.length; i++) {
-        // console.log(keys[i]);
-
         // Create var, set value to object key, data type string:
         const key = keys[i];
 
@@ -127,24 +118,18 @@ function isProductExisting(source, searchFor, iterationCount) {
     const productIDs = Object.keys(source);
     const productID = productIDs[iterationCount];
     if (searchFor == productID) {
-        console.log(`Searchterm ${searchFor} was found in the product line! :)`);
+        // console.log(`Searchterm ${searchFor} was found in the product line! :)`);
         return true;
     }
     else if (iterationCount > numberOfProducts) {
-        console.log(`iterationCount (${iterationCount}) is higher than the number of products in the product line (${numberOfProducts}).`);
+        // console.log(`iterationCount (${iterationCount}) is higher than the number of products in the product line (${numberOfProducts}).`);
         return false;
     }
     else if (searchFor != productID) {
-        console.log(`Searchterm was not found in product line. :(`);
+        // console.log(`Searchterm was not found in product line. :(`);
         iterationCount++;
         return isProductExisting(source, searchFor, iterationCount);
     }
-}
-function saveOrderToLocalStorage(order) {
-    // Add order to array of orders:
-    orders.push(order);
-    // Convert the array of order obj into a string and save it in localStorage:
-    localStorage.setItem('dumbStarbucksCoffeeOrders', JSON.stringify(orders));
 }
 function orderProduct(id) {
     const keys = Object.keys(products);
@@ -154,19 +139,19 @@ function orderProduct(id) {
         // Create an order obj:
         const title = products[id].navn;
         const price = products[id].pris;
-        const orderedProduct = new order(title, price);
-
+        let orderedProduct = new order(title, price);
+        // Save order to localStorage:
         saveOrderToLocalStorage(orderedProduct);
-            console.log(orders);
-        // Create the rendered order in the order catalog:
-        const orderCatalog = document.getElementById('orders');
-        orderCatalog.insertAdjacentHTML('afterbegin', orderedProduct.render());
+        // Insert obj into DOM:
+        const orderCatalog = document.getElementById('order-catalog');
+        orderedProduct.display(orderCatalog);
         // Update the displayed count of orders:
         updateOrderCount(orderCatalog);
         // Update the displayed sum total:
+        displaySumIn(orderSumContainer)
     }
     else {
-        alert('We could not find the product in our product catalog.')
+        alert('We could not find the product in our product catalog.');
     }
 }
 function updateOrderCount(fromThisElement) {
@@ -177,20 +162,64 @@ function updateOrderCount(fromThisElement) {
     // const orderCount = countOrders(fromThisElement);
 
     // Display new order count in pill
-    orderCountDisplay.innerHTML = orderCount;
+    orderCountDisplay.textContent = orderCount;
 }
-
+function useLocalStorage() {
+    // Check if there already exist a localStorage key 'dumbStarbucksCoffeeOrders'. The result will affect what value 'orders' gets:
+    if (localStorage.getItem('dumbStarbucksCoffeeOrders')) {
+        orders = JSON.parse(localStorage.getItem('dumbStarbucksCoffeeOrders'));
+    }
+    else {
+        orders = [];
+    }
+    // Create a localStorage item with the key of 'dumbStarbucksCoffeeOrders' and set its value to array of orders (which has been converted to a string):
+    localStorage.setItem('dumbStarbucksCoffeeOrders', JSON.stringify(orders));
+}
+function loadFromLocalStorage(toHere) {
+    const localStorageValueString = localStorage.getItem('dumbStarbucksCoffeeOrders');
+    // Convert the string stored in localStorage to an array of obj:
+    const localStorageValueArray = JSON.parse(localStorageValueString);
+    if (localStorageValueArray.length > 0) {
+        for (const obj of localStorageValueArray) {
+            // Create an order obj from data in array:
+            const title = obj.title;
+            const price = obj.price;
+            let savedOrder = new order(title, price)
+            // Insert obj in order catalog:
+            savedOrder.display(toHere);
+        }
+    }
+}
+function saveOrderToLocalStorage(order) {
+    // Add order to array of orders:
+    orders.push(order);
+    // Convert the array of order obj into a string and save it in localStorage:
+    localStorage.setItem('dumbStarbucksCoffeeOrders', JSON.stringify(orders));
+}
+function calculateSum() {
+    let sum = 0;
+    const localStorageValueString = localStorage.getItem('dumbStarbucksCoffeeOrders');
+    const localStorageValueArray = JSON.parse(localStorageValueString);
+    for (const obj of localStorageValueArray) {
+        const price = obj.price;
+        sum += price;
+    }
+    return sum;
+}
+function displaySumIn(here) {
+    const sum = calculateSum();
+    here.textContent = `${sum}kr`;
+}
 // SETUP
 document.addEventListener("DOMContentLoaded", function () {
     // VARIABLES
     const cardCatalog = document.getElementById('card-catalog');
-    const orderCatalog = document.getElementById('orders');
+    const orderCatalog = document.getElementById('order-catalog');
+    orderSumContainer = document.getElementById('orders__sum')
 
+    useLocalStorage();
     setupUserInterface(products, cardCatalog);
-    // updateOrderCount(orderCatalog);
-    savedOrders.forEach(order => {
-        // orderCatalog.insertAdjacentHTML('afterbegin', order.render());
-        console.log(order);
-    });
+    loadFromLocalStorage(orderCatalog);
     updateOrderCount(orderCatalog);
+    displaySumIn(orderSumContainer);
 });
