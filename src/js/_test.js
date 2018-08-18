@@ -162,10 +162,10 @@ function updateOrderCount(fromThisElement) {
     const orderCount = fromThisElement.getElementsByTagName('li').length - 1;
     // const orderCount = countOrders(fromThisElement);
 
-    // Display new order count in pill
+    // Display new order count in pill:
     orderCountDisplay.textContent = orderCount;
 }
-function useLocalStorage() {
+function setupLocalStorage() {
     // Check if there already exist a localStorage key 'dumbStarbucksCoffeeOrders'. The result will affect what value 'orders' gets:
     if (localStorage.getItem('dumbStarbucksCoffeeOrders')) {
         orders = JSON.parse(localStorage.getItem('dumbStarbucksCoffeeOrders'));
@@ -230,6 +230,7 @@ function calculateSum() {
         }
     const localStorageValueArray = JSON.parse(localStorageValueString);
     if (localStorageValueArray.length == 0) {
+        console.log(`Calculated sum is ${sum}.`);
         return sum;
     }
     else {
@@ -237,6 +238,7 @@ function calculateSum() {
             const price = obj.price;
             sum += price;
         }
+        console.log(`Calculated sum is ${sum}.`);
         return sum;
     }
 }
@@ -251,7 +253,7 @@ document.addEventListener("DOMContentLoaded", function () {
     orderCatalog = document.getElementById('order-catalog');
     orderSumContainer = document.getElementById('orders__sum')
 
-    useLocalStorage();
+    setupLocalStorage();
     setupUserInterface(products, cardCatalog);
     loadFromLocalStorage(orderCatalog);
     updateOrderCount(orderCatalog);
