@@ -1,5 +1,7 @@
 // DATA
 // JavaScript object, not correct JSON ???
+// KLJO
+// Hvordan kan vi finde ud af om det er korrekt JSON? Find ud af det og fortæl mig hvad det er :)
 const products = {
     "coffee1": {
         "navn" : "Americano",
@@ -37,6 +39,8 @@ let orderCatalog;
 let orderSumContainer;
 
 // CLASS(ES)
+// KLJO
+// Jeg vil anbefale at du flytter hver af dine klasser (Du må selvfølgelig godt have flere klasser i en fil, hvis de er med til at løse samme problemstilling.) ud i hver deres fil. Tanken bag ved er, at din kode bliver mere modulær opdelt i hver problemstilling. Dette kendes også om Separation of Concerns.
 class product {
     constructor(id, image, title, description, price) {
         this.id = id;
@@ -76,6 +80,10 @@ class product {
                 </div>`;
     }
 }
+
+// KLJO
+// I forhold til Separation of Concerns kan vi sige at orders løser en problemstilling omkring håndtering af nuværende ordre. Jeg tænker mere på det som en slags indkøbskurv af ordre. Denne kurv vil have sine egne problemer og løsninger.
+// Når noget har sine egne problemer og løsninger, adskiller vi de i en seperat fil (Separation of Concerns).
 class order {
     constructor(title, price) {
         this.title = title;
@@ -87,11 +95,15 @@ class order {
                     <span>${this.price}kr</span>
                 </li>`;
     }
-    display(here) {
-        here.insertAdjacentHTML('afterbegin', this.render());
+    displayIn(thisContainer) {
+        thisContainer.insertAdjacentHTML('afterbegin', this.render());
     }
 }
 
+
+// KLJO
+// I forhold til Separation of Concerns er det at sætte UI op en anden problemstilling end håndtering af ordre. Også en anden problemstilling end specifikt at sætte siden med kaffe op.
+// Denne funktion kunne derfor flyttes ud i sin egen fil og laves mere generisk så den fx kan håndtere flere typer af produkter.
 // FUNCTION(S)
 function setupUserInterface(obj, location) {
     const keys = Object.keys(obj);
@@ -145,7 +157,7 @@ function orderProduct(id) {
         saveOrderToLocalStorage(orderedProduct);
         // Insert obj into DOM:
         const orderCatalog = document.getElementById('order-catalog');
-        orderedProduct.display(orderCatalog);
+        orderedProduct.displayIn(orderCatalog);
         // Update the displayed count of orders:
         updateOrderCount(orderCatalog);
         // Update the displayed sum total:
@@ -176,7 +188,10 @@ function setupLocalStorage() {
     // Create a localStorage item with the key of 'dumbStarbucksCoffeeOrders' and set its value to array of orders (which has been converted to a string):
     localStorage.setItem('dumbStarbucksCoffeeOrders', JSON.stringify(orders));
 }
-function loadFromLocalStorage(toHere) {
+// KLJO
+// Det er en lille ting, men dine parameternavne kunne godt være mere sigende. Fx kunne toHere hedde tableName.
+// Lav funktionen mere generisk: Gør det således. at den modtager parametre der fortæller hvad den skal finde i localStorage.!!!
+function loadOrdersFromLocalStorage(ordersContainer) {
     const localStorageValueString = localStorage.getItem('dumbStarbucksCoffeeOrders');
     // Convert the string stored in localStorage to an array of obj:
     const localStorageValueArray = JSON.parse(localStorageValueString);
@@ -187,7 +202,7 @@ function loadFromLocalStorage(toHere) {
             const price = obj.price;
             let savedOrder = new order(title, price)
             // Insert obj in order catalog:
-            savedOrder.display(toHere);
+            savedOrder.displayIn(ordersContainer);
         }
     }
 }
@@ -222,12 +237,16 @@ function deleteOrders() {
 function calculateSum() {
     let sum = 0;
     let localStorageValueString;
-        if (localStorage.getItem('dumbStarbucksCoffeeOrders')) {
-            localStorageValueString = localStorage.getItem('dumbStarbucksCoffeeOrders');
-        }
-        else {
-            localStorageValueString = '[]';
-        }
+    // KLJO
+    // En lille ting men din kontrolstruktur (if-else) skal ikke indrykkes.
+    if (localStorage.getItem('dumbStarbucksCoffeeOrders')) {
+        // KLJO
+        // Hvis loadOrdersFromLocalStorage funktionen var mere generisk kunne du bruge den her - du vil altså kunne genbruge mere af din kode. !!!
+        localStorageValueString = localStorage.getItem('dumbStarbucksCoffeeOrders');
+    }
+    else {
+        localStorageValueString = '[]';
+    }
     const localStorageValueArray = JSON.parse(localStorageValueString);
     if (localStorageValueArray.length == 0) {
         console.log(`Calculated sum is ${sum}.`);
@@ -242,9 +261,11 @@ function calculateSum() {
         return sum;
     }
 }
-function displaySumIn(here) {
+// KLJO
+// Parameternavn kunne være mere sigende med fx. totalPriceElm
+function displaySumIn(totalPriceContainer) {
     const sum = calculateSum();
-    here.textContent = `${sum}kr`;
+    totalPriceContainer.textContent = `${sum}kr`;
 }
 // SETUP
 document.addEventListener("DOMContentLoaded", function () {
@@ -255,7 +276,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setupLocalStorage();
     setupUserInterface(products, cardCatalog);
-    loadFromLocalStorage(orderCatalog);
+    // KLJO
+    // I stedet for at gemme dit HTML i localStorage så gem kun din data. HVis du fx vil vise denne data anderledes på et tidspunkt. Tænk på at holde din data adskilt fra din markup. Ligesom du holder markup (HTML) adskilt fra style (CSS)
+    loadOrdersFromLocalStorage(orderCatalog);
     updateOrderCount(orderCatalog);
     displaySumIn(orderSumContainer);
 });
